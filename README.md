@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-1.0.0-orange.svg)
+![Version](https://img.shields.io/badge/version-1.0.1-orange.svg)
 ![Version](https://img.shields.io/badge/platform-macOS | ubuntu | gentoo-yellow.svg)
 
 # Dotfiles “Fever”
@@ -76,7 +76,7 @@ git via: `brew install git`. **Ubuntu** users can install git via:
 Clone the repo and run install script.
 
 ```bash
-git clone https://github.com/vigo/dotfiles-universal.git $HOME/Dotfiles
+git clone https://github.com/vigo/dotfiles-fever.git $HOME/Dotfiles
 bash $HOME/Dotfiles/install.sh
 ```
 
