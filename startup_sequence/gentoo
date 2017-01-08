@@ -1,1 +1,4 @@
 alias ls='ls -h --color --group-directories-first'
+
+export LC_COLLATE="C" # folders start with . will be on top
+unset LC_ALL

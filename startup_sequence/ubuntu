@@ -23,4 +23,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
+export LC_COLLATE="C" # folders start with . will be on top
+
 alias ls='ls -h --color --group-directories-first'

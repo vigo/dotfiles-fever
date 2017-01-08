@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-1.0.2-orange.svg)
+![Version](https://img.shields.io/badge/version-1.0.3-orange.svg)
 ![Version](https://img.shields.io/badge/platform-macOS | ubuntu | gentoo-yellow.svg)
 
 # Dotfiles “Fever”
@@ -289,6 +289,7 @@ Thats it!
 **2017-01-08**
 
 * First release!
+* `ls` fix for Linux (`export LC_COLLATE="C"`)
 
 **2017-01-06**
 
