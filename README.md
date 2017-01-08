@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-1.0.1-orange.svg)
+![Version](https://img.shields.io/badge/version-1.0.2-orange.svg)
 ![Version](https://img.shields.io/badge/platform-macOS | ubuntu | gentoo-yellow.svg)
 
 # Dotfiles “Fever”
@@ -78,6 +78,7 @@ Clone the repo and run install script.
 ```bash
 git clone https://github.com/vigo/dotfiles-fever.git $HOME/Dotfiles
 bash $HOME/Dotfiles/install.sh
+exec $SHELL # reload baby!
 ```
 
 Defaults are:
