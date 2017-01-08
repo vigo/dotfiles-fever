@@ -1,0 +1,38 @@
+# osx specific settings
+
+# brew related stuff, if brew exists
+if [[ $(command -v brew) ]]; then
+    
+    # load bash completions
+    if [ -f $(brew --prefix)/etc/bash_completion ]; then
+        source $(brew --prefix)/etc/bash_completion
+    fi
+    
+    # https://github.com/kennethreitz/autoenv
+    if [[ -d $(brew --prefix autoenv) ]]; then
+        source $(brew --prefix autoenv)/activate.sh
+    fi
+fi
+
+
+# env-vars
+export MACOSX_VERSION=$(sw_vers -productVersion)
+
+
+# aliases
+
+# if you have "coreutils" package
+# brew install coreutils
+if [[ $(command -v gls) ]]; then
+    alias ls="gls -h --color --group-directories-first"
+else
+    alias ls="ls -alhG@" # bsd
+fi
+alias desktop_hide="defaults write com.apple.finder CreateDesktop -bool false;killall Finder;"
+alias desktop_show="defaults write com.apple.finder CreateDesktop -bool true;killall Finder;"
+alias shadow_screenshot_disable='defaults write com.apple.screencapture disable-shadow -bool true && killall SystemUIServer'
+alias shadow_screenshot_enable='defaults write com.apple.screencapture disable-shadow -bool false && killall SystemUIServer'
+alias ios_backup_disable="defaults write com.apple.iTunes DeviceBackupsDisabled -bool YES"
+alias ios_backup_enable="defaults delete com.apple.iTunes DeviceBackupsDisabled"
+alias ds_store_clear="find . -name '\.DS_Store' -print -delete"
+alias lock_screen="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"

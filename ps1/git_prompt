@@ -1,0 +1,149 @@
+#!/usr/bin/env bash
+
+# Created by Uğur "vigo" Özyılmazel,
+# feel free to add/change or implement more kool features
+# @vigobronx
+
+git_repo_path=$(git rev-parse --git-dir 2>/dev/null)
+
+in_git_repo() {
+    if [[ ! -z $git_repo_path && $git_repo_path != "~" && $git_repo_path != "." && $git_repo_path != $HOME/.git ]]; then
+        return 0
+    fi
+    return 1
+}
+
+
+git_parse_branch() {
+    branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    if [[ $branch == "HEAD" ]]; then
+        tag=$(git describe --tag 2>/dev/null)
+        if [[ -z $tag ]]; then
+            echo "no branch"
+        else
+            echo "${tag}"
+        fi
+    else
+        echo "${branch}"
+    fi
+}
+
+
+any_rebasing() {
+    if [[ -f $git_repo_path/BISECT_LOG ]]; then
+        echo "+bisect"
+    elif [[ -f $git_repo_path/MERGE_HEAD ]]; then
+        echo "+merge"
+    elif [[ -f $git_repo_path/rebase || -f $git_repo_path/rebase-apply || -f $git_repo_path/rebase-merge ]]; then
+        echo "+rebase"
+    fi
+}
+
+
+commit_position() {
+    branch=$(git_parse_branch)
+    current_status=$(eval "git branch -v | grep '* $branch' 2>/dev/null")
+    if [[ $current_status =~ (behind|ahead) ]]; then
+        output=""
+        ahead_ptrn="ahead ([0-9]+)"
+        behind_ptrn="behind ([0-9]+)"
+        if [[ "${current_status}" =~ $ahead_ptrn ]]; then
+            output=" ${output}\xE2\x86\x92${BASH_REMATCH[1]}"
+        fi
+        if [[ "${current_status}" =~ $behind_ptrn ]]; then
+            output="${output} ${BASH_REMATCH[1]}\xE2\x86\x90"
+        fi
+        echo -e "${output}"
+    fi
+}
+
+cwd_anything_changed() {
+    count_untracked=0
+    count_added=0
+    count_modified=0
+    count_renamed=0
+    count_deleted=0
+    count_typechanged=0
+
+    symbol_unctracked="\xE2\x96\xA1"   # □ WHITE SQUARE
+    symbol_added="\xE2\x96\xA0"        # ■ BLACK SQUARE
+    symbol_modified="\xE2\x97\x86"     # ◆ BLACK DIAMOND
+    symbol_renamed="\xE2\x97\x87"      # ◇ WHITE DIAMOND
+    symbol_deleted="\xE2\x97\x8C"      # ◌ DOTTED CIRCLE
+    symbol_typechanged="\xE2\x9A\x91"  # ❖ BLACK DIAMOND MINUS WHITE X
+    symbol_overall="\xE2\x9D\x96"      # ◔ CIRCLE WITH UPPER RIGHT QUADRANT BLACK
+    
+    while read -r line; do
+        status_indicators=$(echo "${line}" | cut -d' ' -f1)
+        if [[ $status_indicators == '??' ]]; then
+            count_untracked=$(($count_untracked+1))
+        else
+            for ((j=0; j<${#status_indicators}; j++)); do
+                indicator="${status_indicators:$j:1}"
+                case $indicator in
+                    A)
+                        count_added=$(($count_added+1))
+                    ;;
+                    M)
+                        count_modified=$(($count_modified+1))
+                    ;;
+                    R)
+                        count_renamed=$(($count_renamed+1))
+                    ;;
+                    D)
+                        count_deleted=$(($count_deleted+1))
+                    ;;
+                    T)
+                        count_typechanged=$(($count_typechanged+1))
+                    ;;
+                esac
+            done
+        fi
+    done <<< $(git status -s)
+
+    count_overall=$((
+        $count_untracked +
+        $count_added + 
+        $count_modified + 
+        $count_renamed + 
+        $count_deleted + 
+        $count_typechanged))
+    
+    if [[ $count_untracked -gt 0 ]]; then
+        printf " ${symbol_unctracked}:${count_untracked}"
+    fi
+    if [[ $count_added -gt 0 ]]; then
+        printf " ${symbol_added}:${count_added}"
+    fi
+    if [[ $count_modified -gt 0 ]]; then
+        printf " ${symbol_modified}:${count_modified}"
+    fi
+    if [[ $count_renamed -gt 0 ]]; then
+        printf " ${symbol_renamed}:${count_renamed}"
+    fi
+    if [[ $count_deleted -gt 0 ]]; then
+        printf " ${symbol_deleted}:${count_deleted}"
+    fi
+    if [[ $count_typechanged -gt 0 ]]; then
+        printf " ${symbol_typechanged}:${count_typechanged}"
+    fi
+    if [[ $count_overall -gt 0 ]]; then
+        printf " | ${count_overall}"
+    fi
+}
+
+if [[ $(command -v git) ]]; then
+    if in_git_repo; then
+        branch=$(git_parse_branch)
+        commit_id=$(git rev-parse --short HEAD 2>/dev/null || echo 'no-commit-id')
+        rebasing=$(any_rebasing)
+        anything_changed=$(cwd_anything_changed)
+        ahead_behind=$(commit_position)
+        branch_color="$(tput setaf 2)${branch}$(tput sgr0)"
+        at_color=" $(tput setaf 7)@$(tput sgr0) "
+        
+        echo "[${branch_color}${at_color}${commit_id}${rebasing}${anything_changed}${ahead_behind}]"
+    fi
+fi
+
+

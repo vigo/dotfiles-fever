@@ -1,0 +1,90 @@
+if [[ ${BASH_VERSINFO[0]} -gt 3 ]]; then
+    shopt -s extglob
+    shopt -s globstar
+    shopt -s dotglob
+fi
+
+
+DOTFILES_PATH=$(readlink "${BASH_SOURCE[0]}")
+export DOTFILES_PATH="${DOTFILES_PATH//\/rc\/bashrc/}"
+
+
+source $DOTFILES_PATH/startup_sequence/common/env
+source $DOTFILES_PATH/startup_sequence/common/alias
+source $DOTFILES_PATH/startup_sequence/common/ls_colors
+
+
+# osx only
+if [[ $(uname) == "Darwin" ]]; then
+    export DFF_OS="OSX"
+    source $DOTFILES_PATH/startup_sequence/osx
+fi
+
+
+# ubuntu only
+if [[ $(command -v lsb_release) ]]; then
+    if [[ $(lsb_release -i | grep -i 'ubuntu') ]]; then
+        export DFF_OS="UBUNTU"
+        source $DOTFILES_PATH/startup_sequence/ubuntu
+    fi
+fi
+
+
+# gentoo only
+if [[ $(uname -r | awk -F - '{print $2}') == "gentoo" ]]; then
+    export DFF_OS="GENTOO"
+    source $DOTFILES_PATH/startup_sequence/gentoo
+fi
+
+
+# setup PS1
+source $DOTFILES_PATH/ps1/init
+
+
+# if we have rbenv?
+if [[ -d $HOME/.rbenv ]]; then
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+fi
+
+
+# if we have pyenv?
+if [[ -d $HOME/.pyenv ]]; then
+    export PYENV_ROOT="${HOME}/.pyenv"
+    export PATH="${PYENV_ROOT}/bin:$PATH"
+    eval "$(pyenv init -)"
+
+    if [[ -d $HOME/.pyenv/plugins/pyenv-virtualenv ]]; then
+        eval "$(pyenv virtualenv-init -)"
+    fi
+    if [[ -d $HOME/.pyenv/plugins/pyenv-virtualenvwrapper ]]; then
+        export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+        pyenv virtualenvwrapper
+    fi
+fi
+
+
+# if we have pip?
+if [[ $(command -v pip) ]]; then
+    eval "$(pip --disable-pip-version-check completion --bash)"
+fi
+
+
+# load functions
+for file in $DOTFILES_PATH/startup_sequence/functions/*; do
+    source $file
+done
+
+
+# custom comletion files
+for file in $DOTFILES_PATH/completions/*; do
+    source $file
+done
+
+
+# load private files
+if [ -n "$(\ls -A $DOTFILES_PATH/private 2>/dev/null)" ]; then
+    for file in $DOTFILES_PATH/private/*; do
+        source $file
+    done
+fi

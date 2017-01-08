@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [[ $(command -v rbenv) ]]; then
+    rbenv_version=$(rbenv version-name)
+    if [[ $rbenv_version != "system" && ! -z $rbenv_version ]]; then
+        echo "[$(tput setaf 3)◆ ${rbenv_version}$(tput sgr0)]"
+    fi
+fi

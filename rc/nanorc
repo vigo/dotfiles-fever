@@ -1,0 +1,10 @@
+set autoindent
+set const
+set cut
+set morespace
+set nonewlines
+set suspend
+set tabstospaces
+set tabsize 4
+set nowrap
+

@@ -1,0 +1,11 @@
+alias rm="rm -i"
+alias mv="mv -i -v"
+alias cp="cp -av"
+alias rmdir="rmdir -p"
+alias mkdir="mkdir -p"
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+alias what_is_my_public_ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias what_is_my_real_ip="curl ifconfig.co"

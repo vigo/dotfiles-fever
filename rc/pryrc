@@ -1,0 +1,21 @@
+Pry.prompt = [
+  proc { |obj, nest_level, _| "[\e[0;32m#{RUBY_VERSION}\e[0m] (\e[0;33m#{obj}\e[0m): #{nest_level} > " },
+  proc { |obj, nest_level, _| "[\e[0;32m#{RUBY_VERSION}\e[0m] (\e[0;33m#{obj}\e[0m): #{nest_level} * " }
+]
+
+Pry.config.ls.separator = "\n"
+
+begin
+  require 'awesome_print'
+  AwesomePrint.defaults={:theme=>:solorized}
+  AwesomePrint.pry!
+rescue LoadError => err
+  puts 'need awesome_print!'
+end
+
+class Object
+  def own_methods(obj=self)
+    (obj.methods - obj.class.superclass.instance_methods).sort
+  end
+end
+
