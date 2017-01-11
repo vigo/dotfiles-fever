@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
 if [[ $(basename $SHELL) == 'bash' ]]; then
-    echo "[${BASH_VERSION}]"
+    bash_version_info="${BASH_VERSION}"
+    if [[ $DFF_BASH_INFO_PROMPT_COLOR ]]; then
+        bash_version_info="${DFF_BASH_INFO_PROMPT_COLOR}${bash_version_info}${COLOR_OFF}"
+    fi
+    printf "[${bash_version_info}]"
 fi

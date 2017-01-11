@@ -53,5 +53,4 @@ set colored-completion-prefix on
 set colored-stats on
 set mark-directories on
 set menu-complete-display-prefix on
-set page-completions on
-set print-completions-horizontally on
+# set print-completions-horizontally on

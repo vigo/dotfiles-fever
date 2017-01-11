@@ -15,5 +15,10 @@ if [[ $(uname) == "Darwin" ]]; then
         consumed_gb=$(bc <<< "scale=2; ($consumed*4096)/1024/1024/1000")
         all_consumed=$(bc <<< "scale=2; $all_consumed+$consumed_gb")
     done
-    printf "[%.2fG]" $(bc <<< "scale=2; $installed_memory_in_gb-$all_consumed")
+    what_is_remaining=$(bc <<< "scale=2; $installed_memory_in_gb-$all_consumed")
+    result=$(printf "%.2fG" "${what_is_remaining}")
+    if [[ $DFF_MEMORY_PROMPT_COLOR ]]; then
+        result="${DFF_MEMORY_PROMPT_COLOR}${result}${COLOR_OFF}"
+    fi
+    printf "[${result}]"
 fi

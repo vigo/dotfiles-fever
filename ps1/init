@@ -1,6 +1,26 @@
 print_horizontal_line(){
     cols=${COLUMNS:-$(tput cols)}
-    printf '%*s\n' "${cols}" '' | tr ' ' -
+    hline=$(printf "%*s\n" "${cols}" "" | tr " " -)
+    if [[ $DFF_HORIZONTAL_LINE_PROMPT_COLOR ]]; then
+        hline="${DFF_HORIZONTAL_LINE_PROMPT_COLOR}${hline}${COLOR_OFF}"
+    fi
+    echo $hline
+}
+
+set_username_hostname_and_home(){
+    user_value="${USER}"
+    hostname_value="${HOSTNAME}"
+    current_dir_value="${PWD//${HOME}/\~}"
+    if [[ $DFF_USER_HOSTNAME_USER_PROMPT_COLOR ]]; then
+        user_value="${DFF_USER_HOSTNAME_USER_PROMPT_COLOR}${user_value}${COLOR_OFF}"
+    fi
+    if [[ $DFF_USER_HOSTNAME_HOSTNAME_PROMPT_COLOR ]]; then
+        hostname_value="${DFF_USER_HOSTNAME_HOSTNAME_PROMPT_COLOR}${hostname_value}${COLOR_OFF}"
+    fi
+    if [[ $DFF_USER_HOSTNAME_CWD_PROMPT_COLOR ]]; then
+        current_dir_value="${DFF_USER_HOSTNAME_CWD_PROMPT_COLOR}${current_dir_value}${COLOR_OFF}"
+    fi
+    printf "${user_value} at ${hostname_value} in ${current_dir_value}"
 }
 
 SCRIPTS_PATH="${DOTFILES_PATH}/ps1"
@@ -18,8 +38,8 @@ PROMPT_BATTERY="\$(${SCRIPTS_PATH}/battery_prompt)"
 PROMPT_LIST_IPS="\$(${SCRIPTS_PATH}/ip_list_prompt)"
 PROMPT_DATABASE_STATUS="\$(${SCRIPTS_PATH}/database_prompt)"
 
-PROMPT_HORIZONTAL_LINE="$(tput setaf 6)\$(print_horizontal_line)$(tput sgr0)"
-PROMPT_USER_AND_HOSTNAME="$(tput setaf 4)\u$(tput sgr0) at $(tput setaf 1)\H$(tput sgr0) in $(tput setaf 7)\w$(tput sgr0)"
+PROMPT_HORIZONTAL_LINE="\$(print_horizontal_line)"
+PROMPT_USER_AND_HOSTNAME="\$(set_username_hostname_and_home)"
 
 if [[ $DFF_OS == "OSX" ]]; then
     PS1_BASIC="${PROMPT_MEMORY}${PROMPT_BATTERY}

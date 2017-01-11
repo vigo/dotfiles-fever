@@ -1,0 +1,36 @@
+# git/hg prompt
+export DFF_REVCONTROL_BRANCH_COLOR="${green}"                          # master
+export DFF_REVCONTROL_AT_SIGN_COLOR="${white}"                         # @
+export DFF_REVCONTROL_COMMIT_ID_COLOR="${underline}"                   # 4a449eb1d5e5
+export DFF_REVCONTROL_UNTRACKED_COLOR="${red}"                         # □
+export DFF_REVCONTROL_ADDED_COLOR="${yellow}${bold}"                   # ■
+export DFF_REVCONTROL_MODIFIED_COLOR="${green}"                        # ◆
+export DFF_REVCONTROL_RENAMED_COLOR="${yellow}"                        # ◇
+export DFF_REVCONTROL_DELETED_COLOR="${blink}${magenta}"               # ◌
+export DFF_REVCONTROL_TYPECHANGED_COLOR="${cyan}"                      # ❖
+export DFF_REVCONTROL_OVERALL_COLOR="${white}"                         #
+export DFF_REVCONTROL_VERTICAL_PIPE_COLOR="${gray}"                    # |
+export DFF_REVCONTROL_GIT_BRANCH_AHEAD_COLOR="${reverse}${white}"      # →
+export DFF_REVCONTROL_GIT_BRANCH_BEHIND_COLOR="${reverse}${white}"     # ←
+
+export DFF_RBENV_PROMPT_COLOR="${yellow}"                              # [◆ 2.3.3]
+
+export DFF_DB_MYSQL_PROMPT_COLOR="${blink}${red}"                      # [MySQL]
+export DFF_DB_POSTGRESQL_PROMPT_COLOR="${blink}${red}"                 # [PG]
+
+export DFF_PYTHON_PROMPT_COLOR="${blue}"                               # [¶ 2.7.12]
+export DFF_DJANGO_PROMPT_COLOR="${cyan}${underline}"                   # [❡ 1.10.1]
+export DFF_VIRTUALENV_PROMPT_COLOR="${red}${bold}"                     # [⚑ resume.bilgi.edu.tr]
+
+export DFF_BASH_INFO_PROMPT_COLOR="${gray}"                            # [4.4.5(1)-release]
+export DFF_BATTERY_PROMPT_COLOR="${yellow}"                            # [⌧ 3:47]
+export DFF_MEMORY_PROMPT_COLOR="${green}${bold}"                       # [2.43G]
+
+export DFF_IPLIST_PROMPT_IFACE_COLOR="${gray}${bold}"                  # [en0:192.168.2.205,vboxnet0:192.168.33.1]
+export DFF_IPLIST_PROMPT_IPADDR_COLOR="${gray}"
+
+export DFF_HORIZONTAL_LINE_PROMPT_COLOR="${gray}"                      # [------]
+
+export DFF_USER_HOSTNAME_USER_PROMPT_COLOR="${blue}"                   # vigo at noto.local in ~
+export DFF_USER_HOSTNAME_HOSTNAME_PROMPT_COLOR="${red}"
+export DFF_USER_HOSTNAME_CWD_PROMPT_COLOR="${white}"

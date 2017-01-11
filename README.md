@@ -1,28 +1,41 @@
-![Version](https://img.shields.io/badge/version-1.0.3-orange.svg)
+![Version](https://img.shields.io/badge/version-1.1.0-orange.svg)
 ![Version](https://img.shields.io/badge/platform-macOS | ubuntu | gentoo-yellow.svg)
 
 # Dotfiles “Fever”
 
-My custom **BASH** environment. Supports **macOS**, **Ubuntu** and **Gentoo**. 
+My custom **BASH** environment. 1Supports **macOS**, **Ubuntu** and **Gentoo**. 
 Feel free to fork and PR. Enjoy!
 
 ---
 
 ## Features
 
+This is default look without any color configuration:
+
+![Example screen of PS1_ADVANCED / No color!](screens/screen_ps_advanced_no_color.png "Screenshot of PS1_ADVANCED - No color!")
+
+---
+
+This is fancy look with fully colored:
+
 ![Example screen of PS1_ADVANCED](screens/screen_ps_advanced.png "Screenshot of PS1_ADVANCED")
+
+---
 
 **Common features**:
 
+* Highly configurable `PS1` features and element colors!
 * Enhanced `history`, formatted output, continuous history across terminal tabs.
 * Auto included `PATH` information. `~/bin`, `/usr/local/sbin` and more.
 * Auto load for `rbenv`, `pyenv`, `pip`
-* Special prompts: **git**, **hg**, **ip_list**, **rbenv**, **pyenv**, **django**, **virtualenv**
+* Special prompts: **git**, **hg**, **ip_list**, **rbenv**, **python**/**pyenv**, **django**, **virtualenv**
 * Bash completions: `bundler`, `django-admin`, `manage.py`, `gem`, `hg`, `rake`, `printev`, `pip`
 * Nice `rc` files for: `gem`, `input`, `irb`, `pry`, `screen`
 * Colorful file lists!
 
 ---
+
+Example of `LS_COLORS`:
 
 ![Colorful files](screens/screen_ls_colors.png "Screenshot of LS_COLORS")
 
@@ -134,17 +147,100 @@ dot-files :)
 
 ### PS1 ELEMENTS
 
+### Color Configuration
+
+You can set the color of every-bit in `PS1`. I use `tput` for coloring.
+Available color and style variables are defined under 
+`startup_sequence/common/tput_colors`:
+
+Colors are:
+
+    ${black}
+    ${red}
+    ${green}
+    ${yellow}
+    ${blue}
+    ${magenta}
+    ${cyan}
+    ${white}
+    ${gray}
+
+Styles are:
+
+    ${bold}
+    ${underline}
+    ${reverse}
+    ${blink}
+
+You can even combine them:
+
+```bash
+export DFF_RBENV_PROMPT_COLOR="${bold}${yellow}${blink}"
+```
+
+Here is an example config and shows are the available variables. Example
+file is available under `startup_sequence/ps_color_configuration_example`.
+You can copy this under your `private/` folder.
+
+```bash
+# git/hg prompt
+export DFF_REVCONTROL_BRANCH_COLOR="${green}"                      # master
+export DFF_REVCONTROL_AT_SIGN_COLOR="${white}"                     # @
+export DFF_REVCONTROL_COMMIT_ID_COLOR="${underline}"               # 4a449eb1d5e5
+export DFF_REVCONTROL_UNTRACKED_COLOR="${red}"                     # □
+export DFF_REVCONTROL_ADDED_COLOR="${yellow}${bold}"               # ■
+export DFF_REVCONTROL_MODIFIED_COLOR="${green}"                    # ◆
+export DFF_REVCONTROL_RENAMED_COLOR="${yellow}"                    # ◇
+export DFF_REVCONTROL_DELETED_COLOR="${blink}${magenta}"           # ◌
+export DFF_REVCONTROL_TYPECHANGED_COLOR="${cyan}"                  # ❖
+export DFF_REVCONTROL_OVERALL_COLOR="${white}"                     #
+export DFF_REVCONTROL_VERTICAL_PIPE_COLOR="${gray}"                # |
+export DFF_REVCONTROL_GIT_BRANCH_AHEAD_COLOR="${reverse}${white}"  # →
+export DFF_REVCONTROL_GIT_BRANCH_BEHIND_COLOR="${reverse}${white}" # ←
+
+export DFF_RBENV_PROMPT_COLOR="${yellow}"                          # [◆ 2.3.3]
+
+export DFF_DB_MYSQL_PROMPT_COLOR="${blink}${red}"                  # [MySQL]
+export DFF_DB_POSTGRESQL_PROMPT_COLOR="${blink}${red}"             # [PG]
+
+export DFF_PYTHON_PROMPT_COLOR="${blue}"                           # [¶ 2.7.12]
+export DFF_DJANGO_PROMPT_COLOR="${cyan}${underline}"               # [❡ 1.10.1]
+export DFF_VIRTUALENV_PROMPT_COLOR="${red}${bold}"                 # [⚑ resume.bilgi.edu.tr]
+
+export DFF_BASH_INFO_PROMPT_COLOR="${gray}"                        # [4.4.5(1)-release]
+
+export DFF_BATTERY_PROMPT_COLOR="${yellow}"                        # [⌧ 3:47]
+
+export DFF_MEMORY_PROMPT_COLOR="${green}${bold}"                   # [2.43G]
+
+export DFF_IPLIST_PROMPT_IFACE_COLOR="${gray}${bold}"              # [en0:192.168.2.205]
+export DFF_IPLIST_PROMPT_IPADDR_COLOR="${gray}"
+
+export DFF_HORIZONTAL_LINE_PROMPT_COLOR="${gray}"                  # [------]
+
+export DFF_USER_HOSTNAME_USER_PROMPT_COLOR="${blue}"               # vigo at
+export DFF_USER_HOSTNAME_HOSTNAME_PROMPT_COLOR="${red}"            # noto.local
+export DFF_USER_HOSTNAME_CWD_PROMPT_COLOR="${white}"               # in ~
+```
+
+
 #### `${PROMPT_MEMORY}`
-OSX only, displays remaining free memory: `[2.90G]`
+OSX only, displays remaining free memory: `[2.90G]`. Color variable is
+`DFF_MEMORY_PROMPT_COLOR`
 
 #### `${PROMPT_BATTERY}`
-OSX only, displays remaining hour(s) on battery mode: `[2:05]`. You can set a 
-custom icon via setting `DFF_BATTERY_ICON` variable. Example:
+OSX only, displays remaining hour(s) on battery mode: `[2:05]`. Color variable is
+`DFF_BATTERY_PROMPT_COLOR`. You can set a custom icon via setting 
+`DFF_BATTERY_ICON` variable. Example:
 
     export DFF_BATTERY_ICON="\xE2\x8C\xA7" # ⌧
 
 #### `${PROMPT_USER_AND_HOSTNAME}`
-Outputs `USERNAME at HOSTNAME in CURRENT_WORKING_DIRECTORY`.
+Outputs `USERNAME at HOSTNAME in CURRENT_WORKING_DIRECTORY`. Color variables are:
+
+* `DFF_USER_HOSTNAME_USER_PROMPT_COLOR`
+* `DFF_USER_HOSTNAME_HOSTNAME_PROMPT_COLOR`
+* `DFF_USER_HOSTNAME_CWD_PROMPT_COLOR`
 
 #### `${PROMPT_GIT}`
 This works if you are under a git repository. Shows current status such as; added,
@@ -191,44 +287,64 @@ Mercurial version of `${PROMPT_GIT}`. Example:
     ◆ : modified
     ◌ : deleted        
 
+Color variables for `${PROMPT_GIT}` and `${PROMPT_HG}` are same:
+
+* `DFF_REVCONTROL_BRANCH_COLOR`
+* `DFF_REVCONTROL_AT_SIGN_COLOR`
+* `DFF_REVCONTROL_COMMIT_ID_COLOR`
+* `DFF_REVCONTROL_UNTRACKED_COLOR`
+* `DFF_REVCONTROL_ADDED_COLOR`
+* `DFF_REVCONTROL_MODIFIED_COLOR`
+* `DFF_REVCONTROL_RENAMED_COLOR`
+* `DFF_REVCONTROL_DELETED_COLOR`
+* `DFF_REVCONTROL_TYPECHANGED_COLOR`
+* `DFF_REVCONTROL_OVERALL_COLOR`
+* `DFF_REVCONTROL_VERTICAL_PIPE_COLOR`
+* `DFF_REVCONTROL_GIT_BRANCH_AHEAD_COLOR`
+* `DFF_REVCONTROL_GIT_BRANCH_BEHIND_COLOR`
+
 #### `${PROMPT_RBENV}`
 Shows current Ruby version if you are using [rbenv](https://github.com/rbenv/rbenv).
+Color variable is `DFF_RBENV_PROMPT_COLOR`.
 
     [◆ 2.3.3] # Ruby version 2.3.3 is active!
 
 #### `${PROMPT_PYENV}`
 Shows current Python and [Django](https://www.djangoproject.com/) versions if 
-you are using [pyenv](https://github.com/yyuu/pyenv).
+you are using [pyenv](https://github.com/yyuu/pyenv) or any existing python
+binary. Color variables are: `DFF_PYTHON_PROMPT_COLOR` and `DFF_DJANGO_PROMPT_COLOR`.
 
-    [¶ 2.7.12 | ❡ 1.10.1] # Python 2.7.12 is active!
-                          # Django 1.10.1 is active!
+    [¶ 2.7.12][❡ 1.10.1] # Python 2.7.12 is active!
+                         # Django 1.10.1 is active!
 
 #### `${PROMPT_VIRTUALENV}`
 Shows current virtualenv information if you are using virtualenv. This would be
 kool if you set this: `export VIRTUAL_ENV_DISABLE_PROMPT=1` somewhere in your
-`private/` area...
+`private/` area...Color variable is `DFF_VIRTUALENV_PROMPT_COLOR`.
 
-    [☂ my_awesome_env] # :)
+    [⚑ my_awesome_env] # :)
 
 #### `${PROMPT_BASH_INFO}`
-Shows current bash version.
+Shows current bash version. Color variable is `DFF_BASH_INFO_PROMPT_COLOR`.
 
     [4.4.5(1)-release] # I need to see this sometimes!
 
 #### `${PROMPT_LIST_IPS}`
-Shows current available local ip list.
+Shows current available local ip list. Color variables are `DFF_IPLIST_PROMPT_IFACE_COLOR`
+and `DFF_IPLIST_PROMPT_IPADDR_COLOR`.
 
     [en0:192.168.2.205,vboxnet0:192.168.33.1]
-    
     # name of interface: IP
 
 #### `${PROMPT_DATABASE_STATUS}`
-OSX only, shows if MySQL or PostgreSQL server is running.
+OSX only, shows if **MySQL** or **PostgreSQL** server is running. Color variables
+are `DFF_DB_MYSQL_PROMPT_COLOR` and `DFF_DB_POSTGRESQL_PROMPT_COLOR`.
 
     [MySQL] # Helps you to remember is server is on/off
 
 #### `${PROMPT_HORIZONTAL_LINE}`
-Draws dashed line along the terminal width. This separates commands.
+Draws dashed line along the terminal width. This separates commands. Color
+variable is `DFF_HORIZONTAL_LINE_PROMPT_COLOR`.
 
 ### PS1_BASIC
 
@@ -285,6 +401,11 @@ Thats it!
 ---
 
 ## Change Log
+
+**2017-01-11**
+
+* Added: Color configuration support.
+* Tuned: `git_prompt` and `hg_prompt`.
 
 **2017-01-08**
 

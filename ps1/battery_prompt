@@ -17,10 +17,14 @@ if [[ $(uname) == "Darwin" ]]; then
         else
             result=$(pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f3 -d';' | cut -f2 -d' ')
         fi
+        
+        out="${result}"
         if [[ $DFF_BATTERY_ICON ]]; then
-            printf "[${DFF_BATTERY_ICON} %s]" "${result}"
-        else
-            printf "[%s]" "${result}"
+            out="${DFF_BATTERY_ICON} ${out}"
         fi
+        if [[ $DFF_BATTERY_PROMPT_COLOR ]]; then
+            out="${DFF_BATTERY_PROMPT_COLOR}${out}${COLOR_OFF}"
+        fi
+        printf "[${out}]"
     fi
 fi

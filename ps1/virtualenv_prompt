@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
 if [[ $VIRTUAL_ENV ]]; then
-    echo "[$(tput setaf 1)☂ $(basename ${VIRTUAL_ENV})$(tput sgr0)]"
+    virtual_env_name=$(basename ${VIRTUAL_ENV})
+    virtual_env_info="⚑ ${virtual_env_name}"
+    if [[ $DFF_VIRTUALENV_PROMPT_COLOR ]]; then
+        virtual_env_info="${DFF_VIRTUALENV_PROMPT_COLOR}${virtual_env_info}${COLOR_OFF}"
+    fi
+    printf "[${virtual_env_info}]"
 fi

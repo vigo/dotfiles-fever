@@ -27,15 +27,22 @@ if [[ $(command -v ifconfig) ]]; then
     for iface in $interface_list; do
         ip_address=$(ifconfig $iface | grep --colour=never -oe "$match_pattern" | cut -f2 -d"$delimeter")
         if [[ $ip_address && $ip_address != "127.0.0.1" ]]; then
+            if [[ $DFF_IPLIST_PROMPT_IFACE_COLOR ]]; then
+                iface="${DFF_IPLIST_PROMPT_IFACE_COLOR}${iface}${COLOR_OFF}"
+            fi
+            if [[ $DFF_IPLIST_PROMPT_IPADDR_COLOR ]]; then
+                ip_address="${DFF_IPLIST_PROMPT_IPADDR_COLOR}${ip_address}${COLOR_OFF}"
+            fi
             iface_and_ip=$(printf ",%s:%s" "${iface}" "${ip_address}")
             output+="${iface_and_ip}"
         fi
     done
-
+    
     if [[ $output ]]; then
-        printf "[%s]" "${output:1}"
+        result="${output:1}"
     else
-        printf "[\xE2\x8C\x81]" # [⌁]
+        result="\xE2\x8C\x81" # [⌁]
     fi
+    printf "[${result}]"
 fi
 

@@ -12,6 +12,7 @@ export DOTFILES_PATH="${DOTFILES_PATH//\/rc\/bashrc/}"
 source $DOTFILES_PATH/startup_sequence/common/env
 source $DOTFILES_PATH/startup_sequence/common/alias
 source $DOTFILES_PATH/startup_sequence/common/ls_colors
+source $DOTFILES_PATH/startup_sequence/common/tput_colors
 
 
 # osx only
