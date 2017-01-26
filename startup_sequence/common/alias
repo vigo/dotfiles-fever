@@ -1,6 +1,6 @@
-alias rm="rm -i"
-alias mv="mv -i -v"
-alias cp="cp -av"
+alias rm="rm -iv"
+alias mv="mv -iv"
+alias cp="cp -aiv"
 alias rmdir="rmdir -p"
 alias mkdir="mkdir -p"
 alias ll='ls -alF'

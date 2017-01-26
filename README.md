@@ -402,6 +402,10 @@ Thats it!
 
 ## Change Log
 
+**2017-01-26**
+
+* `rm`, `mv`, `cp` aliases now include `-i` flag.
+
 **2017-01-11**
 
 * Added: Color configuration support.
