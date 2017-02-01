@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-1.1.1-orange.svg)
+![Version](https://img.shields.io/badge/version-1.1.2-orange.svg)
 ![Version](https://img.shields.io/badge/platform-macOS | ubuntu | gentoo-yellow.svg)
 
 # Dotfiles “Fever”
@@ -111,6 +111,18 @@ others are optional:
 If you installed `nano` from `brew`, fulfilling nano configuration will be
 generated and saved to `~/.nanorc`. Most of the install process is **sym-linking**
 except nano configuration.
+
+## Uninstallation
+
+This will **unlink** all the symlinks. Will not delete `~/Dotfiles` folder.
+Do it by your self please... Do not forget to check your `~/Dotfiles/private`
+folder ok?
+
+```bash
+bash $HOME/Dotfiles/uninstall.sh
+exec $SHELL # reload baby!
+```
+
 
 ---
 
@@ -401,6 +413,10 @@ Thats it!
 ---
 
 ## Change Log
+
+**2017-02-01**
+
+* Uninstall script added.
 
 **2017-01-26**
 
