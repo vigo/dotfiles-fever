@@ -8,9 +8,10 @@ print_horizontal_line(){
 }
 
 set_username_hostname_and_home(){
+    # \u at \H in \w
     user_value="${USER}"
     hostname_value="${HOSTNAME}"
-    current_dir_value="${PWD//${HOME}/\~}"
+    current_dir_value="~${PWD//${HOME}/}"
     if [[ $DFF_USER_HOSTNAME_USER_PROMPT_COLOR ]]; then
         user_value="${DFF_USER_HOSTNAME_USER_PROMPT_COLOR}${user_value}${COLOR_OFF}"
     fi
