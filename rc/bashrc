@@ -62,6 +62,8 @@ if [[ -d $HOME/.pyenv ]]; then
         export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
         pyenv virtualenvwrapper
     fi
+elif [[ $(command -v virtualenvwrapper.sh) ]]; then
+    source $(command -v virtualenvwrapper.sh)
 fi
 
 
