@@ -10,6 +10,6 @@ export HISTIGNORE="ls:ll:cd:pwd"
 export HISTFILESIZE=30000
 export HISTSIZE=30000
 export HISTCONTROL=ignoredups:erasedups
-export HISTTIMEFORMAT="[$(tput setaf 2)%A at %T$(tput sgr0)]: "
+export HISTTIMEFORMAT="[$(tty -s && tput setaf 2)%A at %T$(tty -s && tput sgr0)]: "
 
 complete -e printenv

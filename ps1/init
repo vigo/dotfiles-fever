@@ -1,5 +1,5 @@
 print_horizontal_line(){
-    cols=${COLUMNS:-$(tput cols)}
+    cols=${COLUMNS:-$(tty -s && tput cols)}
     hline=$(printf "%*s\n" "${cols}" "" | tr " " -)
     if [[ $DFF_HORIZONTAL_LINE_PROMPT_COLOR ]]; then
         hline="${DFF_HORIZONTAL_LINE_PROMPT_COLOR}${hline}${COLOR_OFF}"
