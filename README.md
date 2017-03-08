@@ -161,9 +161,8 @@ dot-files :)
 
 ### Color Configuration
 
-You can set the color of every-bit in `PS1`. I use `tput` for coloring.
-Available color and style variables are defined under 
-`startup_sequence/common/tput_colors`:
+You can set the color of every-bit in `PS1`. Available color and style variables 
+are defined under `startup_sequence/common/ps1_colors`:
 
 Colors are:
 
@@ -253,6 +252,16 @@ Outputs `USERNAME at HOSTNAME in CURRENT_WORKING_DIRECTORY`. Color variables are
 * `DFF_USER_HOSTNAME_USER_PROMPT_COLOR`
 * `DFF_USER_HOSTNAME_HOSTNAME_PROMPT_COLOR`
 * `DFF_USER_HOSTNAME_CWD_PROMPT_COLOR`
+
+You can change the variables. See details (**osx/bsd**) via `man -P 'less -p ^PROMPTING' bash`
+
+```bash
+PROMPT_USER_AND_HOSTNAME="${DFF_USER_HOSTNAME_USER_PROMPT_COLOR}\u${COLOR_OFF} at ${DFF_USER_HOSTNAME_HOSTNAME_PROMPT_COLOR}\H${COLOR_OFF} in ${DFF_USER_HOSTNAME_CWD_PROMPT_COLOR}\w${COLOR_OFF}"
+
+# vigo at noto.local in ~/Dotfiles
+# \u at \H in \w
+```
+
 
 #### `${PROMPT_GIT}`
 This works if you are under a git repository. Shows current status such as; added,
@@ -408,11 +417,51 @@ Again, customize yours, create a file, such as `my_ps1` and put it under `privat
     export PS1="${PROMPT_USER_AND_HOSTNAME}
     $ "
 
+or;
+
+    PROMPT_USER_AND_HOSTNAME="${DFF_USER_HOSTNAME_USER_PROMPT_COLOR}\u${COLOR_OFF} roxxx at ${DFF_USER_HOSTNAME_HOSTNAME_PROMPT_COLOR}\H${COLOR_OFF} in ${DFF_USER_HOSTNAME_CWD_PROMPT_COLOR}\w${COLOR_OFF}"
+    PS1_MY_ADVANCED="${PROMPT_HORIZONTAL_LINE}
+    ${PROMPT_BASH_INFO}${PROMPT_MEMORY}${PROMPT_BATTERY}${PROMPT_LIST_IPS}
+    ${PROMPT_USER_AND_HOSTNAME}
+    ${PROMPT_DATABASE_STATUS}${PROMPT_VIRTUALENV}${PROMPT_RBENV}${PROMPT_PYENV}${PROMPT_GIT}${PROMPT_HG}
+    x "
+    export PS1=$PS1_MY_ADVANCED
+
 Thats it!
+
+## Other Features
+
+### `HISTTIMEFORMAT`
+
+You can customize how your history will look :) Default is:
+
+```bash
+export HISTTIMEFORMAT="[${green}%A at ${white}${underline}%T${COLOR_OFF}]: "
+# [Tuesday at 23:32:10]: cd Dotfiles/
+#  |          |
+#  +-> green  |
+#             +-> white + underlined
+```
+
+History uses **strftime**, you can check options via `man 3 strftime`. Keep
+this in mind, always use styling variables after color definition:
+
+```bash
+# example
+${blue}${bold}
+${green}${link}
+```
+
+This also applies **PS1 Coloring** too...
 
 ---
 
 ## Change Log
+
+**2017-03-08**
+
+* Removed `tput` usage. This was affecting ssh/scp output.
+* Added color and history configuration description
 
 **2017-02-01**
 

@@ -9,10 +9,11 @@ DOTFILES_PATH=$(readlink "${BASH_SOURCE[0]}")
 export DOTFILES_PATH="${DOTFILES_PATH//\/rc\/bashrc/}"
 
 
+source $DOTFILES_PATH/startup_sequence/common/ls_colors
+source $DOTFILES_PATH/startup_sequence/common/ps1_colors
+source $DOTFILES_PATH/startup_sequence/ps_color_configuration_example
 source $DOTFILES_PATH/startup_sequence/common/env
 source $DOTFILES_PATH/startup_sequence/common/alias
-source $DOTFILES_PATH/startup_sequence/common/ls_colors
-source $DOTFILES_PATH/startup_sequence/common/tput_colors
 
 
 # osx only

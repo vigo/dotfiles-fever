@@ -10,6 +10,6 @@ export HISTIGNORE="ls:ll:cd:pwd"
 export HISTFILESIZE=30000
 export HISTSIZE=30000
 export HISTCONTROL=ignoredups:erasedups
-export HISTTIMEFORMAT="[$(tty -s && tput setaf 2)%A at %T$(tty -s && tput sgr0)]: "
+export HISTTIMEFORMAT="[${green}%A at ${white}${underline}%T${COLOR_OFF}]: "
 
 complete -e printenv
