@@ -32,12 +32,19 @@ This is fancy look with fully colored:
 * Bash completions: `bundler`, `django-admin`, `manage.py`, `gem`, `hg`, `rake`, `printev`, `pip`
 * Nice `rc` files for: `gem`, `input`, `irb`, `pry`, `screen`
 * Colorful file lists!
+* Colorful `man` and `less` output
 
 ---
 
 Example of `LS_COLORS`:
 
 ![Colorful files](screens/screen_ls_colors.png "Screenshot of LS_COLORS")
+
+---
+
+Example of colored `man` pages:
+
+![Colorful man pages](screens/screen_man_pages_colors.png "Screenshot of man pages")
 
 ---
 
@@ -431,6 +438,26 @@ Thats it!
 
 ## Other Features
 
+### `less` and `man` pages coloring
+
+Check the file `startup_sequence/common/less_colors`:
+
+```bash
+export LESS_TERMCAP_md="${yellow}${bold}"         # bold text
+export LESS_TERMCAP_us="${green}${underline}"     # start underline
+export LESS_TERMCAP_so="${white_on_blue}"         # start standout (reverse video)
+
+export LESS_TERMCAP_me="${COLOR_OFF}"             # turn off bold, blink and underline
+export LESS_TERMCAP_se="${COLOR_OFF}"             # stop standout
+export LESS_TERMCAP_ue="${COLOR_OFF}"             # stop underline
+```
+
+Color values such as `${yellow}`, `${green}` they all are coming from `PS1` color
+setup. You can customize it easily. All you need is to set `LESS_TERMCAP_XX`
+variable. `XX` can be `md`, `us` etc... More details can be found [here](http://unix.stackexchange.com/questions/119/colors-in-man-pages)
+
+Use defaults or add yours under `private/my_less_colors`.
+
 ### `HISTTIMEFORMAT`
 
 You can customize how your history will look :) Default is:
@@ -457,6 +484,10 @@ This also applies **PS1 Coloring** too...
 ---
 
 ## Change Log
+
+**2017-03-11**
+
+* `man` pages now have colors!
 
 **2017-03-08**
 
