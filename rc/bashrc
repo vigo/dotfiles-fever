@@ -2,10 +2,11 @@ if [[ ${BASH_VERSINFO[0]} -gt 3 ]]; then
     shopt -s extglob
     shopt -s globstar
     shopt -s dotglob
+    DOTFILES_PATH=$(readlink "${BASH_SOURCE[0]}")
+else
+    DOTFILES_PATH="${HOME}/Dotfiles"
 fi
 
-
-DOTFILES_PATH=$(readlink "${BASH_SOURCE[0]}")
 export DOTFILES_PATH="${DOTFILES_PATH//\/rc\/bashrc/}"
 
 
