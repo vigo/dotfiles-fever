@@ -1,5 +1,5 @@
 ![Version](https://img.shields.io/badge/version-1.1.2-orange.svg)
-![Version](https://img.shields.io/badge/platform-macOS | ubuntu | gentoo-yellow.svg)
+![Version](https://img.shields.io/badge/platform-macOS%20%7C%20ubuntu%20%7C%20gentoo-yellow.svg)
 
 # Dotfiles “Fever”
 
