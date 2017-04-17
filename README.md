@@ -218,8 +218,9 @@ export DFF_REVCONTROL_GIT_BRANCH_BEHIND_COLOR="${reverse}${white}" # ←
 
 export DFF_RBENV_PROMPT_COLOR="${yellow}"                          # [◆ 2.3.3]
 
-export DFF_DB_MYSQL_PROMPT_COLOR="${blink}${red}"                  # [MySQL]
-export DFF_DB_POSTGRESQL_PROMPT_COLOR="${blink}${red}"             # [PG]
+export DFF_DB_MYSQL_PROMPT_COLOR="${red}${blink}"                  # [MySQL]
+export DFF_DB_POSTGRESQL_PROMPT_COLOR="${red}${blink}"             # [PG]
+export DFF_DB_REDIS_PROMPT_COLOR="${red}${blink}"                  # [REDIS]
 
 export DFF_PYTHON_PROMPT_COLOR="${blue}"                           # [¶ 2.7.12]
 export DFF_DJANGO_PROMPT_COLOR="${cyan}${underline}"               # [❡ 1.10.1]
@@ -365,10 +366,15 @@ and `DFF_IPLIST_PROMPT_IPADDR_COLOR`.
     # name of interface: IP
 
 #### `${PROMPT_DATABASE_STATUS}`
-OSX only, shows if **MySQL** or **PostgreSQL** server is running. Color variables
-are `DFF_DB_MYSQL_PROMPT_COLOR` and `DFF_DB_POSTGRESQL_PROMPT_COLOR`.
 
-    [MySQL] # Helps you to remember is server is on/off
+OSX only, shows if **MySQL** or **PostgreSQL** or **Redis** server is running.
+Color variables are:
+
+- `DFF_DB_MYSQL_PROMPT_COLOR`
+- `DFF_DB_POSTGRESQL_PROMPT_COLOR`
+- `DFF_DB_REDIS_PROMPT_COLOR`
+
+    [MySQL][PG][REDIS] # Helps you to remember is server is on/off
 
 #### `${PROMPT_HORIZONTAL_LINE}`
 Draws dashed line along the terminal width. This separates commands. Color

@@ -15,8 +15,9 @@ export DFF_REVCONTROL_GIT_BRANCH_BEHIND_COLOR="${reverse}${white}"     # ←
 
 export DFF_RBENV_PROMPT_COLOR="${yellow}"                              # [◆ 2.3.3]
 
-export DFF_DB_MYSQL_PROMPT_COLOR="${blink}${red}"                      # [MySQL]
-export DFF_DB_POSTGRESQL_PROMPT_COLOR="${blink}${red}"                 # [PG]
+export DFF_DB_MYSQL_PROMPT_COLOR="${red}${blink}"                      # [MySQL]
+export DFF_DB_POSTGRESQL_PROMPT_COLOR="${red}${blink}"                 # [PG]
+export DFF_DB_REDIS_PROMPT_COLOR="${red}${blink}"                      # [REDIS]
 
 export DFF_PYTHON_PROMPT_COLOR="${blue}"                               # [¶ 2.7.12]
 export DFF_DJANGO_PROMPT_COLOR="${cyan}${underline}"                   # [❡ 1.10.1]

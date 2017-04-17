@@ -2,8 +2,7 @@
 
 set -e
 
-get_mysql_status()
-{
+get_mysql_status() {
     if [[ $(command -v mysql.server) ]]; then
         mysql_status=$(mysql.server status)
         regex="running \(([0-9]+)\)"
@@ -19,8 +18,7 @@ get_mysql_status()
     
 }
 
-get_postgresql_status()
-{
+get_postgresql_status() {
     if [[ $(command -v pg_ctl) ]]; then
         if [[ -z "$PGDATA" ]]; then
             postgresql_status=$(pg_ctl status -D /usr/local/var/postgres)
@@ -39,8 +37,22 @@ get_postgresql_status()
     fi
 }
 
+get_redis_status() {
+    if [[ $(command -v redis-cli) ]]; then
+        redis_ping=$(redis-cli ping > /dev/null 2>&1)
+        if [[ $? == 0 ]]; then
+            out="REDIS"
+            if [[ $DFF_DB_REDIS_PROMPT_COLOR ]]; then
+                out="${DFF_DB_REDIS_PROMPT_COLOR}${out}${COLOR_OFF}"
+            fi
+            echo "[${out}]"
+        fi
+    fi
+}
+
 if [[ $(uname) == "Darwin" ]]; then
     mysql_status=$(get_mysql_status)
     postgresql_status=$(get_postgresql_status)
-    echo "${mysql_status}${postgresql_status}"
+    redis_status=$(get_redis_status)
+    echo "${mysql_status}${postgresql_status}${redis_status}"
 fi
